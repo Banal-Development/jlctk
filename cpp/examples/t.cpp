@@ -35,6 +35,7 @@ struct PlanetPos
 {
   int planet_num;
   double t, x, y;
+  char planet[16];
 };
 
 struct PlanetPosRing
@@ -61,7 +62,7 @@ int main()
     }    
 
     auto w_idx = out_seg->end_idx++;
-    new (&out_seg->planet_pos_v[w_idx % req_ring_size]) PlanetPos{p1.planet_num, p1.t, p1.x, p1.y};
+    new (&out_seg->planet_pos_v[w_idx % req_ring_size]) PlanetPos{p1.planet_num, p1.t, p1.x, p1.y, "myplanet"};
     
     p1.move();
     this_thread::sleep_for(std::chrono::milliseconds(10));

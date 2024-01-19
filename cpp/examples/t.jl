@@ -1,10 +1,11 @@
-using SharedArrays
+using SharedArrays, StaticArrays
 
 struct PlanetPos
   planet_num::Int64
   t::Float64
   x::Float64
   y::Float64
+  planet::SVector{16, UInt8}
 end
 
 struct PlanetPosRing
@@ -25,6 +26,7 @@ function main()
   last_idx = sa[1].end_idx-1
   if last_idx >= start_idx
      println(planet_pos_v[mod(start_idx, ring_size)], " --> ", planet_pos_v[mod(last_idx, ring_size)])
+     println(String(planet_pos_v[mod(start_idx, ring_size)].planet))
   end
   #for i in start_idx:last_idx
   #  println(planet_pos_v[i])
