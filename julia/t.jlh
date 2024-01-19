@@ -1,0 +1,13 @@
+include("t1.jlh")
+
+struct IDS
+  i::Int32
+  d::Float64
+  #s::Vector{UInt8}(0, 32)
+end
+
+struct IDS2
+  i::Int32
+  d::Float
+  #ids::IDS3
+end

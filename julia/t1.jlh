@@ -1,0 +1,5 @@
+struct IDS3
+  i::Int
+  d::Float64
+  s::String
+end
