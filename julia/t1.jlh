@@ -1,5 +1,5 @@
 struct IDS3
-  i::Int
+  i::Int32
   d::Float64
-  s::String
+  s::SVector{64, UInt64}
 end

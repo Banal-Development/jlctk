@@ -4,14 +4,28 @@ c_types_d = Dict{Symbol,String}(:Int32=>"int",:Float64=>"double",:UInt8=>"char")
 
 function generate_c_struct(struct_name, struct_members)
   println("struct $struct_name {")
+
   for (struct_member_name, struct_member_type) in struct_members
-   c_typename = get(c_types_d, struct_member_type, undef)
-   if c_typename == undef
-     println("error")
+   #println("  ", struct_member_name, " ", struct_member_type, " ", typeof(struct_member_type))
+   if isa(struct_member_type, Symbol)
+     c_typename = get(c_types_d, struct_member_type, undef)
+     if c_typename == undef
+       println("error")
+     else
+       println("  $c_typename $struct_member_name;")
+     end
+   elseif isa(struct_member_type, Expr)
+     #println(struct_member_type.head, " ", struct_member_type.args[1], struct_member_type.args[2], struct_member_type.args[3])
+     #println(typeof(struct_member_type.head), " ", typeof.(struct_member_type.args))
+     if isa(struct_member_type.head, Symbol) && struct_member_type.head == :curly && struct_member_type.args[1] == :SVector && struct_member_type.args[3] == :UInt8
+        arr_card = struct_member_type.args[2]
+        println("  char $struct_member_name[$arr_card];")
+     end
    else
-     println("  $c_typename $struct_member_name;")
+     println("error too")   
    end
   end
+  
   println("};")
 end
 
