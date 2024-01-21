@@ -1,3 +1,3 @@
-add_executable(planets.tsk t.cpp)
-target_link_libraries(planets.tsk jlctk)
+add_executable(run-planets.tsk run-planets.cpp)
+target_link_libraries(run-planets.tsk jlctk)
 

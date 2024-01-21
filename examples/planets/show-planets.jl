@@ -1,24 +1,7 @@
+# to run: julia --project=../../jlctk.jl ./show-planets.jl
+#
 using StaticArrays
-
-# from https://github.com/JuliaLang/julia/blob/master/stdlib/Mmap/src/Mmap.jl
-
-const PROT_READ     = Cint(1)
-const PROT_WRITE    = Cint(2)
-const MAP_SHARED    = Cint(1)
-const MAP_PRIVATE   = Cint(2)
-
-function open_mmap(fn::String)::Ptr{Cvoid}
-  shared = true
-  io = open(fn, "r")
-  mmaplen = filesize(io)
-  file_desc = RawFD(fd(io))
-  prot = PROT_READ # or PROT_READ | PROT_WRITE
-  flags = shared ? MAP_SHARED : MAP_PRIVATE
-  offset_page = 0
-  ptr = ccall(:jl_mmap, Ptr{Cvoid}, (Ptr{Cvoid}, Csize_t, Cint, Cint, RawFD, Int64),
-              C_NULL, mmaplen, prot, flags, file_desc, offset_page)
-  return ptr
-end
+using jlctk
 
 struct RingDescriptor
   ring_size::UInt64
@@ -35,7 +18,7 @@ struct PlanetPos
 end
 
 function main()
- mmap_v_ptr = open_mmap("./out_seg.bin")
+ mmap_v_ptr = jlctk.open_mmap("./out_seg.bin")
  # from https://stackoverflow.com/a/40246607/1181482
  mmap_ptr = reinterpret(Ptr{RingDescriptor}, mmap_v_ptr)
  ring_o = unsafe_wrap(Vector{RingDescriptor}, mmap_ptr, 1)

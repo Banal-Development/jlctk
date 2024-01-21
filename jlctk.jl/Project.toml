@@ -1,0 +1,4 @@
+name = "jlctk"
+uuid = "974d2568-db8c-4485-b52d-275a0b9fb110"
+authors = ["Andrei Smirnov <andrei.smirnov.69@gmail.com>"]
+version = "0.1.0"
