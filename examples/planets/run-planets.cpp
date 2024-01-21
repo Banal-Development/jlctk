@@ -36,7 +36,19 @@ struct PlanetPos
 {
   int planet_num;
   double t, x, y;
-  char planet[16];
+  array<unsigned char, 16> planet;
+
+  PlanetPos(int planet_num, double t, double x, double y, const string& planet)
+  {
+    this->planet_num = planet_num;
+    this->t = t;
+    this->x = x;
+    this->y = y;
+    if (planet.size() >= this->planet.size()) {
+      throw runtime_error("too long string");
+    }
+    copy(planet.begin(), planet.end(), this->planet.begin());
+  }
 };
 
 int main()
@@ -52,7 +64,8 @@ int main()
     }    
 
     auto w_idx = out_seg->end_idx++;
-    new (&out_seg->v[w_idx % req_ring_size]) PlanetPos{p1.planet_num, p1.t, p1.x, p1.y, "myplanet"};
+    auto aa = to_array("hh");
+    new (&out_seg->v[w_idx % req_ring_size]) PlanetPos(p1.planet_num, p1.t, p1.x, p1.y, "myplanet");
     
     p1.move();
     this_thread::sleep_for(std::chrono::milliseconds(10));
