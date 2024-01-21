@@ -1,3 +1,5 @@
+#!/usr/bin/env -S julia --color=yes --startup-file=no
+
 using Debugger
 
 c_types_d = Dict{Symbol,String}(:Int32=>"int",:Float64=>"double",:UInt8=>"char")
