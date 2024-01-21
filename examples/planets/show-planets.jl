@@ -13,6 +13,7 @@ end
 
 function main()
  planet_seg = jlctk.open_mmap_segment(Ptr{PlanetPos}(0), "out_seg.bin")
+ println(typeof(planet_seg))
 
  start_idx = 1
  while true

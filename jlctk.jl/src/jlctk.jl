@@ -48,10 +48,13 @@ function open_mmap_segment(_::Ptr{T}, fn::String)::VectorSegment{T} where {T}
  v = unsafe_wrap(Vector{T}, v_addr, ring_o[1].ring_size__)
  ret = VectorSegment{T}(ring_o, v)
 
+ #=
  println("ring_size: ", ring_o[1].ring_size__)
  println("end_idx: ", ring_o[1].end_idx__) 
  println(mmap_v_ptr, " ", mmap_v_ptr + sizeof(RingDescriptor))
  println(mmap_ptr, " ", mmap_ptr + sizeof(RingDescriptor))
+ =#
+
  return ret
 end
 
